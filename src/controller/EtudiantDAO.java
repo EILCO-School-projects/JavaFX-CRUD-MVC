@@ -1,4 +1,4 @@
-package dao;
+package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +9,23 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class EtudiantDao {
+public class EtudiantDAO {
+
+
+    public static void supprimer(String id) {
+        String query = "DELETE FROM etudiant_db WHERE ID=" + id + "";
+        executeQuery(query);
+    }
+
+    public static void modifier(String nom, String id) {
+        String query = "UPDATE etudiant_db SET nom='" + nom + "' WHERE ID=" + id + "";
+        executeQuery(query);
+    }
+
+    public static void ajouter(String nom, String id) {
+        String query = "insert into etudiant_db values(" + nom + ", '" + id + "')";
+        executeQuery(query);
+    }
 
     private static Connection getConnection() {
         Connection conn;
@@ -34,7 +50,7 @@ public class EtudiantDao {
     }
 
 
-    public static ObservableList<Etudiant> getStudentsList() {
+    public static ObservableList<Etudiant> getEtudiant() {
         ObservableList<Etudiant> studentList = FXCollections.observableArrayList();
         Connection connection = getConnection();
         String query = "SELECT * FROM etudiant_db ";
@@ -56,19 +72,6 @@ public class EtudiantDao {
     }
 
 
-    public static void delete(String id) {
-        String query = "DELETE FROM etudiant_db WHERE ID=" + id + "";
-        executeQuery(query);
-    }
 
-    public static void update(String nom, String id) {
-        String query = "UPDATE etudiant_db SET nom='" + nom + "' WHERE ID=" + id + "";
-        executeQuery(query);
-    }
-
-    public static void insert(String nom, String id) {
-        String query = "insert into etudiant_db values(" + nom + ", '" + id + "')";
-        executeQuery(query);
-    }
 
 }

@@ -1,4 +1,4 @@
-package library;
+package model;
 
 public class Etudiant {
 

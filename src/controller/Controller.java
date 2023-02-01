@@ -1,6 +1,5 @@
 package controller;
 
-import dao.EtudiantDao;
 import model.Etudiant;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +17,7 @@ import java.sql.Connection;
 import java.util.ResourceBundle;
 
 
-public class MainController implements Initializable {
+public class Controller implements Initializable {
 
     Connection conn;
 
@@ -50,32 +49,31 @@ public class MainController implements Initializable {
 
     @FXML
     private void insertButton() {
-        EtudiantDao.insert(idField.getText(), titleField.getText());
-        showBooks();
+        EtudiantDAO.ajouter(idField.getText(), titleField.getText());
+        afficherEtudiant();
     }
 
 
     @FXML
     private void updateButton() {
-        EtudiantDao.update(titleField.getText(), idField.getText());
-        showBooks();
+        EtudiantDAO.modifier(titleField.getText(), idField.getText());
+        afficherEtudiant();
     }
 
     @FXML
     private void deleteButton() {
-        EtudiantDao.delete(idField.getText());
-        showBooks();
+        EtudiantDAO.supprimer(idField.getText());
+        afficherEtudiant();
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showBooks();
+        afficherEtudiant();
     }
 
-
-    public void showBooks() {
-        ObservableList<Etudiant> list = EtudiantDao.getStudentsList();
+    public void afficherEtudiant() {
+        ObservableList<Etudiant> list = EtudiantDAO.getEtudiant();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<Etudiant, Integer>("id"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<Etudiant, String>("nom"));
